@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_employee" model="res.groups">
+        <field name="name">Nhan vien mua hang</field>
+        <field name="users" eval="[
+            (4, ref('base.user_admin')),
+        ]"/>
+    </record>
+    <record id="invoice_employee" model="res.groups">
+        <field name="name">Ke toan vien</field>
+        <field name="users" eval="[
+            (4, ref('base.user_admin')),
+        ]"/>
+    </record>
+
+</odoo>
