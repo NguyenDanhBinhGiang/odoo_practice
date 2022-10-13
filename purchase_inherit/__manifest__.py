@@ -9,6 +9,7 @@
         'data/data.xml',
         'views/views.xml',
         'views/department_view_inherit.xml',
+        'views/purchase_order_view_inherit.xml',
         'views/templates.xml',
     ],
 }
