@@ -8,6 +8,7 @@
         'security/group.xml',
         'data/data.xml',
         'views/views.xml',
+        'views/department_view_inherit.xml',
         'views/templates.xml',
     ],
 }

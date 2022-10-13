@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="department_view_inherit" model="ir.ui.view">
+        <field name="name">change department view</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="currency_id" ref="VND"/>
+                <field name="spending_limit"/>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>
