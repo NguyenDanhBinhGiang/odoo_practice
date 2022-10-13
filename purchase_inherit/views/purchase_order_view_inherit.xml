@@ -5,9 +5,17 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
+<!--            Add department-->
             <xpath expr="//form/sheet/group/group/field[@name='currency_id']" position="after">
                 <field name="department"/>
             </xpath>
+
+<!--            Add recommend vendor-->
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']"
+                   position="after">
+                <field name="recommend_vendor"/>
+            </xpath>
+
         </field>
     </record>
   </data>
