@@ -32,7 +32,7 @@ class PurchaseOrderLineInherit(models.Model):
                         rec.recommend_vendor = fastest_vendors[0]
                     else:
                         """If there are still multiple fastest vendors, then choose by random"""
-                        rec.recommend_vendor = fastest_vendors[random.randint(0, len(fastest_vendors) - 1)]
+                        rec.recommend_vendor = random.choice(fastest_vendors)
                 else:
                     rec.recommend_vendor = False
         pass

@@ -1,0 +1,31 @@
+<odoo>
+    <record id="spending_limit_form" model="ir.ui.view">
+        <field name="name">spending limit</field>
+        <field name="model">spending.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="spending_limit_ids" mode="tree" widget="one2many">
+                        <tree editable="bottom">
+                            <field name="employee_id" widget="many2one_tags"/>
+                            <field name="limit"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_spending_form" model="ir.actions.server">
+        <field name="name">spending limit</field>
+        <field name="model_id" ref="model_spending_config"/>
+        <field name="state">code</field>
+        <field name="code">action = env.get('spending.config').get_view()</field>
+    </record>
+
+    <menuitem id="spending_menu_item"
+              name="spending config"
+              parent="purchase.menu_purchase_config"
+              action="action_server_spending_form"/>
+
+</odoo>

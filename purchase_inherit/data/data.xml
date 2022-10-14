@@ -3,8 +3,13 @@
     <record model="hr.department" id="default_production_department">
       <field name="name">Phong san xuat</field>
     </record>
+
     <record model="hr.department" id="default_it_department">
       <field name="name">Phong IT</field>
+    </record>
+
+    <record model="spending.config" id="default_spending_config">
+      <field name="only_one_record_lock">True</field>
     </record>
 
 <!--    </data>-->
