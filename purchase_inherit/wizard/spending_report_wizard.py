@@ -61,8 +61,7 @@ class SpendingReport(models.TransientModel):
     wizard_id = fields.Many2one('spending.report.wizard', ondelete='cascade')
     department_id = fields.Many2one('hr.department',
                                     string='Ten phong ban')
-    currency_id = fields.Many2one(related='department_id.currency_id')
-    spending_limit = fields.Monetary(related='department_id.spending_limit')
+    spending_limit = fields.Float(related='department_id.spending_limit')
     spending = fields.Float('Chi tieu thuc te', compute='_compute_department_spending', readonly=True)
 
     @api.depends('department_id')
