@@ -1,0 +1,42 @@
+<odoo >
+    <record model="ir.rule" id="sale_manager_crm_lead_permission">
+        <field name="name">truong phong ban hang full quyen</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('crm_sale_inherit.sale_department_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record model="ir.rule" id="sale_manager_sale_order_permission">
+        <field name="name">truong phong ban hang full quyen</field>
+        <field name="model_id" ref="sale_management.model_sale_order"/>
+        <field name="groups" eval="[(4, ref('crm_sale_inherit.sale_department_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_employee_crm_lead_permission">
+        <field name="name">nhan vien ban hang </field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('crm_sale_inherit.sale_employee'))]"/>
+        <field name="domain_force">['!', ('create_uid', '=', user.id), ('user_id', '=', user.id)]</field>
+    </record>
+    <record model="ir.rule" id="sale_employee_sale_order_permission">
+        <field name="name">nhan vien ban hang</field>
+        <field name="model_id" ref="sale_management.model_sale_order"/>
+        <field name="groups" eval="[(4, ref('crm_sale_inherit.sale_employee'))]"/>
+        <field name="domain_force">['!', ('create_uid', '=', user.id), ('user_id', '=', user.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_team_leader_crm_lead_permission">
+        <field name="name">truong nhom sale</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('crm_sale_inherit.sale_employee'))]"/>
+        <field name="domain_force">[('team_id.user_id', '=', user.id)]</field>
+    </record>
+    <record model="ir.rule" id="sale_team_leader_sale_order_permission">
+        <field name="name">truong nhom sale</field>
+        <field name="model_id" ref="sale_management.model_sale_order"/>
+        <field name="groups" eval="[(4, ref('crm_sale_inherit.sale_employee'))]"/>
+        <field name="domain_force">[('team_id.user_id', '=', user.id)]</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_department_manager" model="res.groups">
+        <field name="name">Truong phong ban hang</field>
+        <field name="users" eval="[
+            (4, ref('base.user_admin')),
+        ]"/>
+    </record>
+    <record id="sale_group_leader" model="res.groups">
+        <field name="name">Truong nhom ban hang</field>
+        <field name="users" eval="[
+            (4, ref('base.user_admin')),
+        ]"/>
+    </record>
+    <record id="sale_employee" model="res.groups">
+        <field name="name">Nhan vien ban hang</field>
+        <field name="users" eval="[
+            (4, ref('base.user_admin')),
+        ]"/>
+    </record>
+
+</odoo>
