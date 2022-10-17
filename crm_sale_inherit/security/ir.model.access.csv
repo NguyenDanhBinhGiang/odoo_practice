@@ -1,1 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_spending_config,spending_config,model_spending_config,base.group_system,1,1,1,1
+acl_sale_team_sale_manager,crm_team,model_crm_team,crm_sale_inherit.sale_department_manager,1,1,1,1
