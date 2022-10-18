@@ -1,14 +1,28 @@
 <odoo>
-  <data>
+<data>
+    <record model="ir.ui.view" id="crm_lead_report_view">
+        <field name="name">Lead report view</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="team_id"/>
+                <field name="min_revenue"/>
+                <field name="total_real_income"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="crm_form_inherit" model="ir.ui.view">
         <field name="name">change CRM form</field>
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_id']" position="after">
-                <field name="min_income" attrs="{'readonly': [('quotation_count', '>', 0)]}"/>
+                <field name="min_revenue" attrs="{'readonly': [('quotation_count', '>', 0)]}"/>
             </xpath>
         </field>
     </record>
-  </data>
+</data>
 </odoo>

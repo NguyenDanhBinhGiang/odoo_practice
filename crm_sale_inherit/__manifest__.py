@@ -5,7 +5,10 @@
     'data': [
         'security/group.xml',
         'security/security_rules.xml',
+        'security/ir.model.access.csv',
         'views/crm_team_inherit.xml',
         'views/crm_lead_inherit.xml',
+        'wizard/crm_report_wizard.xml',
+        'wizard/crm_team_report_wizard.xml',
     ],
 }

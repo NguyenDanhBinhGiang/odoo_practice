@@ -1,0 +1,36 @@
+<odoo>
+    <record id="crm_report_form" model="ir.ui.view">
+        <field name="name">Bao cao chi tiet</field>
+        <field name="model">crm.lead.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="month"/>
+                    </group>
+                    <group>
+                        <field name="sale_team_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button string='Xuat du lieu' type='object' name='show_report_btn' class='btn-primary'/>
+                    <button string='Huy' class='btn-default' special='cancel'/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_crm_report" model="ir.actions.server">
+        <field name="name">CRM report action</field>
+        <field name="model_id" ref="model_crm_lead_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code">action = env.get('crm.lead.report.wizard').get_view()</field>
+    </record>
+
+    <menuitem id="crm_report_menu"
+              name="Bao cao chi tiet"
+              parent="crm.crm_menu_report"
+              action="action_server_crm_report"
+              groups="crm_sale_inherit.sale_department_manager"/>
+</odoo>

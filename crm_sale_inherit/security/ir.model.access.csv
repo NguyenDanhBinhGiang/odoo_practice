@@ -1,3 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-acl_spending_config,spending_config,model_spending_config,base.group_system,1,1,1,1
 acl_sale_team_sale_manager,crm_team,model_crm_team,crm_sale_inherit.sale_department_manager,1,1,1,1
+
+acl_crm_report_admin,crm_lead_report_wizard,model_crm_lead_report_wizard,base.group_system,1,1,1,1
+acl_crm_report_sale_manager,crm_lead_report_wizard,model_crm_lead_report_wizard,crm_sale_inherit.sale_department_manager,1,1,1,1
+
+acl_crm_report_team_wizard_admin,crm_team_report_wizard,model_crm_team_report_wizard,base.group_system,1,1,1,1
+acl_crm_team_report_wizard_manager,crm_team_report_wizard,model_crm_team_report_wizard,crm_sale_inherit.sale_department_manager,1,1,1,1
+
+acl_crm_report_team_admin,crm_team_report,model_crm_team_report,base.group_system,1,1,1,1
+acl_crm_team_report_manager,crm_team_report,model_crm_team_report,crm_sale_inherit.sale_department_manager,1,1,1,1

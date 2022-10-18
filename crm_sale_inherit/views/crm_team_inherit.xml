@@ -8,7 +8,7 @@
             <xpath expr="//page[@name='members_users']" position="after">
                 <page string="chi tieu doanh so" name="chi_tieu_doanh_so"
                 groups="crm_sale_inherit.sale_department_manager">
-                    <button name="stop_btn" string="stop for debug" type="object"/><br/>
+<!--                    <button name="stop_btn" string="stop for debug" type="object"/><br/>-->
 
                     <tr t-foreach="range(1,13)" t-as="i">
                         <td>Thang 1: </td>

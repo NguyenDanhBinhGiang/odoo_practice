@@ -1,0 +1,54 @@
+<odoo>
+    <record id="team_report_tree" model="ir.ui.view">
+        <field name="name">Bao cao chi tiet</field>
+        <field name="model">crm.team.report.wizard</field>
+        <field name="arch" type="xml">
+            <form readonly="True">
+                <sheet>
+                    <field name="team_report_ids" mode="tree" widget="one2many" readonly="True">
+                        <tree>
+                            <field name="team_id" widget="many2one_tags"/>
+                            <field name="real_revenue"/>
+                            <field name="expected_revenue"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_team_report_form" model="ir.ui.view">
+        <field name="name">Bao cao chi tiet</field>
+        <field name="model">crm.team.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="month"/>
+                    </group>
+                    <group>
+                        <field name="sale_team_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button string='Xuat du lieu' type='object' name='show_report_btn' class='btn-primary'/>
+                    <button string='Huy' class='btn-default' special='cancel'/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_crm_team_report" model="ir.actions.server">
+        <field name="name">CRM team report action</field>
+        <field name="model_id" ref="model_crm_team_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code">action = env.get('crm.team.report.wizard').get_view()</field>
+    </record>
+
+    <menuitem id="crm_team_report_menu"
+              name="Bao cao danh gia chi tieu"
+              parent="crm.crm_menu_report"
+              action="action_server_crm_team_report"
+              groups="crm_sale_inherit.sale_department_manager"/>
+</odoo>
