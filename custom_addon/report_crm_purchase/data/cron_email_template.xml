@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<odoo>-->
+<!--    <template id="cron_email_report_crm_purchase">-->
+<!--        <div id="body">-->
+<!--            <h2>Bao cao thu chi thang <span t-field="monthly_report.month"/> nam <span t-field="monthly_report.month"/> </h2>-->
+<!--            <h3>1. Kinh doanh</h3>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>Ten nhom ban hang</th>-->
+<!--                    <th>Doanh thu thuc te</th>-->
+<!--                    <th>Chenh lech doanh thu</th>-->
+<!--                </tr>-->
+<!--                <tr t-foreach="monthly_report.sale_report_ids" t-as="sale_line">-->
+<!--                    <td t-field="sale_line.sale_team_id.name" />-->
+<!--                    <td t-field="sale_line.total_revenue" />-->
+<!--                    <td t-field="sale_line.revenue_diff" />-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--            <p>Regards,</p>-->
+<!--        </div>-->
+<!--    </template>-->
+<!--</odoo>-->
+
+<odoo>
+    <data>
+        <record id="mail_template_cron_email_report" model="mail.template">
+            <field name="name">Bao cao thu chi thang</field>
+            <field name="model_id" ref="report_crm_purchase.model_monthly_report"/>
+            <field name="subject">Bao cao thu chi thang ${object.month | safe}</field>
+            <field name="email_from" ref="base.user_root"/>
+<!--            <field name="email_to">${object.dealer_email_list | safe}</field>-->
+<!--            <field name="partner_to">{{object.email_to.id}}</field>-->
+            <field name="body_html" type="html">
+                <h3>1. Kinh doanh</h3>
+                <table>
+                    <tr>
+                        <th>Ten nhom ban hang</th>
+                        <th>Doanh thu thuc te</th>
+                        <th>Chenh lech doanh thu</th>
+                    </tr>
+                    <tr t-foreach="object.sale_report_ids" t-as="sale_line">
+                        <td><span t-field="sale_line.sale_team_id.name" /></td>
+                        <td><span t-field="sale_line.total_revenue" /></td>
+                        <td><span t-field="sale_line.revenue_diff" /></td>
+                    </tr>
+                </table>
+            </field>
+            <field name="lang" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>
