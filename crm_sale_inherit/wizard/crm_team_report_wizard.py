@@ -58,8 +58,10 @@ class CrmTeamReport(models.TransientModel):
     @api.depends('team_id')
     def _compute_report(self):
         for rec in self:
-            # TODO: use getattrib for safer
-            rec.expected_revenue = eval(f"rec.team_id.chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
+            def filter_month(f_rec):
+                return f_rec.date_order.month == int(rec.wizard_id.month)
+            rec.expected_revenue = getattr(rec.team_id, f"chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
             orders_revenue = self.env['sale.order'].search(
-                [('team_id.id', '=', rec.team_id.id), ('state', '=', 'sale')]).mapped('amount_total')
+                [('team_id.id', '=', rec.team_id.id), ('state', '=', 'sale')]).filtered(filter_month).mapped(
+                'amount_total')
             rec.real_revenue = sum(orders_revenue)
