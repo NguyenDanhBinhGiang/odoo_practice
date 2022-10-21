@@ -17,7 +17,7 @@ class MonthlyReport(models.Model):
     @api.constrains('month')
     def _month_constraint(self):
         for rec in self:
-            if rec.month not in range(1, 13):
+            if not 0 < int(rec.month) < 13:
                 raise odoo.exceptions.ValidationError('Thang khong hop le')
 
     def monthly_cron_job(self):

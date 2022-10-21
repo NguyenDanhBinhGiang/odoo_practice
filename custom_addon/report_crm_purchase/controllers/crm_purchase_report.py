@@ -15,7 +15,7 @@ class CrmPurchaseReport(http.Controller):
         if token != 'odooneverdie':
             Response.status = '401 Unauthorized'
             return json.dumps({'err': 'Wrong token'})
-        if month not in range(0, 13):
+        if not 0 < int(month) < 13:
             Response.status = '400 Bad Request'
             return json.dumps({'err': f'Bad month value: {month}'})
 
