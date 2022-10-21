@@ -8,3 +8,5 @@ acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,b
 acl_spending_report,spending_report,model_spending_report,base.group_user,1,1,1,1
 acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,purchase_inherit.invoice_employee,1,1,1,1
 acl_spending_report,spending_report,model_spending_report,purchase_inherit.invoice_employee,1,1,1,1
+
+acl_purchase_order_sale_employee,purchase_order,model_purchase_order,purchase_inherit.purchase_employee,1,1,1,0

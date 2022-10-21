@@ -38,30 +38,30 @@
                     }
                 </style>
                 <h3>1. Kinh doanh</h3>
-                <table class="cron_email">
+                <table style="border: 1px solid black; border-collapse: collapse;">
                     <tr>
-                        <th>Ten nhom ban hang</th>
-                        <th>Doanh thu thuc te</th>
-                        <th>Chenh lech doanh thu</th>
+                        <th style="border: 1px solid black; border-collapse: collapse;">Ten nhom ban hang</th>
+                        <th style="border: 1px solid black; border-collapse: collapse;">Doanh thu thuc te</th>
+                        <th style="border: 1px solid black; border-collapse: collapse;">Chenh lech doanh thu</th>
                     </tr>
                     <tr t-foreach="object.sale_report_ids" t-as="sale_line">
-                        <td><span t-field="sale_line.sale_team_id.name" /></td>
-                        <td><span t-field="sale_line.total_revenue" /></td>
-                        <td><span t-field="sale_line.revenue_diff" /></td>
+                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="sale_line.sale_team_id.name" /></td>
+                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="sale_line.total_revenue" /></td>
+                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="sale_line.revenue_diff" /></td>
                     </tr>
                 </table>
 
                 <h3>2. Mua hang</h3>
-                <table class="cron_email">
+                <table style="border: 1px solid black; border-collapse: collapse;">
                     <tr>
-                        <th>Ten phong ban</th>
-                        <th>Chi tieu thuc te</th>
-                        <th>Chenh lech chi tieu</th>
+                        <th style="border: 1px solid black; border-collapse: collapse;">Ten phong ban</th>
+                        <th style="border: 1px solid black; border-collapse: collapse;">Chi tieu thuc te</th>
+                        <th style="border: 1px solid black; border-collapse: collapse;">Chenh lech chi tieu</th>
                     </tr>
                     <tr t-foreach="object.purchase_report_ids" t-as="purchase_line">
-                        <td><span t-field="purchase_line.department_id.name" /></td>
-                        <td><span t-field="purchase_line.total_spending" /></td>
-                        <td><span t-field="purchase_line.spending_diff" /></td>
+                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.department_id.name" /></td>
+                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.total_spending" /></td>
+                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.spending_diff" /></td>
                     </tr>
                 </table>
 

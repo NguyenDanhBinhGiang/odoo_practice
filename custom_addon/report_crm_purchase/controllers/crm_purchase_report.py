@@ -11,10 +11,13 @@ class CrmPurchaseReport(http.Controller):
     def user_partner(self, token=None, month=None, year=None):
         if not all([token, month, year]):
             Response.status = '400 Bad Request'
-            return json.dumps({'err': 'Bad request'})
+            return json.dumps({'err': 'Request body must have token, month and year'})
         if token != 'odooneverdie':
             Response.status = '401 Unauthorized'
             return json.dumps({'err': 'Wrong token'})
+        if month not in range(0, 13):
+            Response.status = '400 Bad Request'
+            return json.dumps({'err': f'Bad month value: {month}'})
 
         domain = [
             ('month', '=', month),

@@ -9,7 +9,6 @@ class CrmTeamInherit(models.Model):
                          f'chi tieu doanh so thang doanh so thang {i} phai > 0')
                         for i in range(1, 13)]
 
-    # TODO: so far exec worked fine, but there's must be some better way other than using 13(!) fields right?
     for i in range(1, 13):
         exec(f"chi_tieu_doanh_so_thang_{i} = fields.Float('Thang {i}')")
 

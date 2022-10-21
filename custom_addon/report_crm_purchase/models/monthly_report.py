@@ -1,5 +1,6 @@
 import datetime
 
+import odoo.exceptions
 from odoo import models, fields, api
 
 
@@ -12,6 +13,12 @@ class MonthlyReport(models.Model):
 
     month = fields.Integer('Thang', required=True)
     year = fields.Integer('Nam', required=True)
+
+    @api.constrains('month')
+    def _month_constraint(self):
+        for rec in self:
+            if rec.month not in range(1, 13):
+                raise odoo.exceptions.ValidationError('Thang khong hop le')
 
     def monthly_cron_job(self):
         report = self.create_this_month_report()
@@ -27,7 +34,6 @@ class MonthlyReport(models.Model):
         }
 
         mail_template = self.env.ref('report_crm_purchase.mail_template_cron_email_report')
-        # FIXME: Unable to connect to SMTP Server
         mail_template.send_mail(report.id, force_send=True, raise_exception=True, email_values=email_values)
 
     def create_report(self, month, year):

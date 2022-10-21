@@ -27,7 +27,6 @@ class PurchaseOrderInherit(models.Model):
                 # self.sudo().message_post(body=f'Purchase order need confirm',
                 #                          partner_ids=partner_list,
                 #                          message_type='notification')
-                # TODO: is commit safe? maybe there's a better way to do this
                 self.env.cr.commit()
                 raise odoo.exceptions.UserError('Ban da vuot qua han muc quy dinh, hay doi ke toan xac nhan')
 

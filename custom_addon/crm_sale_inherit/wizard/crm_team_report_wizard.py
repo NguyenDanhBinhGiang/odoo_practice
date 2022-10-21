@@ -59,9 +59,13 @@ class CrmTeamReport(models.TransientModel):
     def _compute_report(self):
         for rec in self:
             def filter_month(f_rec):
-                return f_rec.date_order.month == int(rec.wizard_id.month)
+                return f_rec.date_open.month == int(rec.wizard_id.month)
+
             rec.expected_revenue = getattr(rec.team_id, f"chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
-            orders_revenue = self.env['sale.order'].search(
-                [('team_id.id', '=', rec.team_id.id), ('state', '=', 'sale')]
-            ).filtered(filter_month).mapped('amount_total')
+
+            orders = self.env['crm.lead'].search(
+                [('team_id.id', '=', rec.team_id.id)]
+            ).filtered(filter_month).mapped('order_ids')
+            orders_revenue = [x.amount_untaxed for x in orders if x.state == 'sale']
+
             rec.real_revenue = sum(orders_revenue)
