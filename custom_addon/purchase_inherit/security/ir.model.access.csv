@@ -4,7 +4,7 @@ acl_spending_limit,spending_limit,model_spending_limit,base.group_system,1,1,1,1
 acl_spending_config,spending_config,model_spending_config,purchase_inherit.invoice_employee,1,1,1,1
 acl_spending_limit,spending_limit,model_spending_limit,purchase_inherit.invoice_employee,1,1,1,1
 
-acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,base.group_system,1,1,1,1
-acl_spending_report,spending_report,model_spending_report,base.group_system,1,1,1,1
+acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,base.group_user,1,1,1,1
+acl_spending_report,spending_report,model_spending_report,base.group_user,1,1,1,1
 acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,purchase_inherit.invoice_employee,1,1,1,1
 acl_spending_report,spending_report,model_spending_report,purchase_inherit.invoice_employee,1,1,1,1

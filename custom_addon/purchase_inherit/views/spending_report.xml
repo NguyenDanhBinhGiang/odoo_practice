@@ -49,6 +49,7 @@
     <menuitem id="spending_report_menu"
               name="Spending report"
               parent="purchase.purchase_report_main"
-              action="action_server_spending_report"/>
+              action="action_server_spending_report"
+              groups="purchase_inherit.invoice_employee"/>
 
 </odoo>

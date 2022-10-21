@@ -71,6 +71,7 @@ class SpendingReport(models.TransientModel):
                 return search_rec.department_id == rec.department_id \
                        and search_rec.date_order.month == int(rec.wizard_id.month)
 
-            orders = self.env['purchase.order'].sudo().search([('department_id', '!=', False)]).filtered(
-                is_correct_order)
+            orders = self.env['purchase.order'].sudo().search(
+                [('department_id', '!=', False), ('state', '=', 'purchase')]
+            ).filtered(is_correct_order)
             rec.spending = sum([x.amount_total for x in orders])

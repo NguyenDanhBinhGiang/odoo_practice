@@ -13,23 +13,17 @@ class MonthlyReport(models.Model):
     month = fields.Integer('Thang', required=True)
     year = fields.Integer('Nam', required=True)
 
-    def action_send_mail(self):
-        # TODO: send email example, delete later
-        mail_template = self.env.ref('report_crm_purchase.mail_template_cron_email_report')
-        for rec in self:
-            if rec.dealer_email_list and rec.email_from:
-                mail_template.send_mail(rec.id, force_send=True)
-
     def monthly_cron_job(self):
-        report = self.create_last_month_report()
+        report = self.create_this_month_report()
 
         email_values = {
-            'email_cc': False, 
-            'auto_delete': True, 
-            'recipient_ids': [], 
+            'email_cc': False,
+            'auto_delete': True,
+            'recipient_ids': [],
             'partner_ids': [],
-            'scheduled_date': False, 
-            'email_to': self.env.user.email
+            'scheduled_date': False,
+            'email_from': 'nguyendanhbinhgiang@gmail.com',
+            'email_to': 'nguyendanhbinhgiang@gmail.com',
         }
 
         mail_template = self.env.ref('report_crm_purchase.mail_template_cron_email_report')
@@ -63,6 +57,10 @@ class MonthlyReport(models.Model):
     def create_last_month_report(self):
         today = datetime.date.today()
         return self.create_report(month=today.month - 1, year=today.year)
+
+    def create_this_month_report(self):
+        today = datetime.date.today()
+        return self.create_report(month=today.month, year=today.year)
 
 
 class MonthlySaleReport(models.Model):

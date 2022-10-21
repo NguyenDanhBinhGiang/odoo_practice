@@ -6,4 +6,10 @@
         'data/cron.xml',
         'data/cron_email_template.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'report_crm_purchase/static/src/mail_template.css',
+        ],
+    },
+
 }
