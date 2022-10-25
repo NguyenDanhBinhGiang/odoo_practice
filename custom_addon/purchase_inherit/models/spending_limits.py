@@ -7,7 +7,8 @@ class SpendingConfig(models.Model):
     _inherit = 'single.line'
 
     name = fields.Text(default='The spending config')
-    spending_limit_ids = fields.Many2many('spending.limit', ondelete='cascade')
+    spending_limit_ids = fields.One2many('spending.limit', 'config_id', ondelete='cascade')
+    currency_id = fields.Many2one('res.currency', 'Don vi tien te')
 
     @api.model
     def get_view(self):
@@ -33,8 +34,10 @@ class SpendingLimit(models.Model):
         ('check_limit', 'CHECK(limit>0)', 'Limit must be greater than 0'),
     ]
 
+    config_id = fields.Many2one('spending.config')
     employee_id = fields.Many2one('hr.employee', string='Nhan vien')
-    limit = fields.Integer('Han muc/don')
+    currency_id = fields.Many2one('res.currency', related='config_id.currency_id')
+    limit = fields.Monetary('Han muc/don', currency_field='currency_id')
 
     @api.constrains('limit')
     def limit_constraint(self):

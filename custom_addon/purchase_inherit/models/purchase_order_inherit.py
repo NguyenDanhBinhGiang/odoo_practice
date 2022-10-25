@@ -14,8 +14,10 @@ class PurchaseOrderInherit(models.Model):
         def correct_user(rec):
             return rec.employee_id.user_id.id == self.env.user.id
 
-        spending_limit = self.env['spending.limit'].sudo().search([]).filtered(correct_user).limit
-        return self.amount_total > spending_limit
+        spending_limit = self.env['spending.limit'].sudo().search([]).filtered(correct_user)
+        limit_currency = spending_limit.currency_id
+        converted_amount = self.currency_id._convert(self.amount_untaxed, limit_currency, self.company_id, fields.Date.today())
+        return converted_amount > spending_limit.limit
 
     def button_confirm(self):
         for rec in self:

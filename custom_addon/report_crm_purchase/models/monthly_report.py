@@ -7,7 +7,6 @@ from odoo import models, fields, api
 class MonthlyReport(models.Model):
     _name = 'monthly.report'
 
-    # TODO: view
     sale_report_ids = fields.One2many('monthly.sale.report.line', 'report_id', ondelete='cascade')
     purchase_report_ids = fields.One2many('monthly.purchase.report.line', 'report_id', ondelete='cascade')
     email_to = fields.Many2many('res.users')

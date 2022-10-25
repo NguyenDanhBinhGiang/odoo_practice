@@ -1,5 +1,6 @@
 <odoo>
 <data>
+<!--    TODO: default search, not context only-->
     <record model="ir.ui.view" id="crm_lead_report_view">
         <field name="name">Lead report view</field>
         <field name="model">crm.lead</field>

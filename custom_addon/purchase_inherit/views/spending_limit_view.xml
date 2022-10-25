@@ -5,6 +5,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="currency_id" string="Don vi tien te"/>
                     <field name="spending_limit_ids" mode="tree" widget="one2many">
                         <tree editable="bottom">
                             <field name="employee_id" widget="many2one_tags"/>

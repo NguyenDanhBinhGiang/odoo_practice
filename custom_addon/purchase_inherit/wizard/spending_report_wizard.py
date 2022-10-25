@@ -76,8 +76,10 @@ class SpendingReport(models.TransientModel):
     #                          default=False, index=True, string='Thang', required=True)
     department_id = fields.Many2one('hr.department',
                                     string='Ten phong ban')
-    spending_limit = fields.Float(related='department_id.spending_limit')
-    spending = fields.Float('Chi tieu thuc te', compute='_compute_department_spending', readonly=True)
+    currency_id = fields.Many2one('res.currency', related='department_id.currency_id')
+    spending_limit = fields.Monetary(related='department_id.spending_limit', currency_field='currency_id')
+    spending = fields.Monetary('Chi tieu thuc te', compute='_compute_department_spending',
+                               currency_field='currency_id', readonly=True)
 
     def export_excel(self):
         wb = openpyxl.load_workbook(
