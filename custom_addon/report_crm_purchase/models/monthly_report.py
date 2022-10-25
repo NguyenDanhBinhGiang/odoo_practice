@@ -12,8 +12,15 @@ class MonthlyReport(models.Model):
     purchase_report_ids = fields.One2many('monthly.purchase.report.line', 'report_id', ondelete='cascade')
     email_to = fields.Many2many('res.users')
 
+    name = fields.Char(compute='_compute_name')
+
     month = fields.Integer('Thang', required=True)
     year = fields.Integer('Nam', required=True)
+
+    @api.depends('month', 'year')
+    def _compute_name(self):
+        for rec in self:
+            rec.name = f"Bao cao thang {rec.month} nam {rec.year}"
 
     @api.constrains('month')
     def _month_constraint(self):

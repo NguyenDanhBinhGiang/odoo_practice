@@ -1,0 +1,52 @@
+<odoo>
+    <record id="monthly_report_form" model="ir.ui.view">
+        <field name="name">Bao cao thang</field>
+        <field name="model">monthly.report</field>
+        <field name="arch" type="xml">
+            <form readonly="1" create="0" edit="0">
+                <field name="sale_report_ids" widget="one2many" mode="tree">
+                    <tree readonly="1">
+                        <field name="sale_team_id" widget="many2one_tags"/>
+                        <field name="total_revenue"/>
+                        <field name="revenue_diff"/>
+                    </tree>
+                </field>
+
+                <field name="purchase_report_ids" widget="one2many" mode="tree">
+                    <tree readonly="1">
+                        <field name="department_id" widget="many2one_tags"/>
+                        <field name="total_spending"/>
+                        <field name="spending_diff"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="monthly_report_tree" model="ir.ui.view">
+        <field name="name">Bao cao hang thang</field>
+        <field name="model">monthly.report</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='monthly_report_action' model='ir.actions.act_window'>
+        <field name="name">Monthly report</field>
+        <field name="res_model">monthly.report</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('monthly_report_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('monthly_report_form')})]"
+        />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="monthly_report_menu_root" name="Monthly report" />
+    <menuitem id="monthly_report_menu"
+              parent="monthly_report_menu_root"
+              name="Monthly report"
+              action="monthly_report_action"/>
+
+</odoo>

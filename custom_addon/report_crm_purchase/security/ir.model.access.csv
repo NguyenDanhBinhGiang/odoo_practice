@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_report_crm_purchase_report_crm_purchase,report_crm_purchase.report_crm_purchase,model_report_crm_purchase_report_crm_purchase,base.group_user,1,1,1,1
+acl_monthly_report_user,monthly_report,model_monthly_report,base.group_user,1,1,1,1
+acl_monthly_sale_report_line_user,monthly_sale_report_line,model_monthly_sale_report_line,base.group_user,1,1,1,1
+acl_monthly_purchase_report_line_user,monthly_purchase_report_line,model_monthly_purchase_report_line,base.group_user,1,1,1,1
