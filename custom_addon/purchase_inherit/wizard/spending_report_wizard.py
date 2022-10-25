@@ -1,6 +1,13 @@
+import base64
+
 from odoo import models, fields, api
+from io import BytesIO
+import openpyxl
+
+from odoo.modules import get_module_resource
 
 
+# TODO: export exel
 class SpendingReportWizard(models.TransientModel):
     _name = 'spending.report.wizard'
 
@@ -12,6 +19,7 @@ class SpendingReportWizard(models.TransientModel):
     report_ids = fields.One2many('spending.report', 'wizard_id', ondelete='cascade')
 
     name = fields.Char(compute='_compute_name')
+    file = fields.Binary('Report excel file')
 
     def _compute_name(self):
         for rec in self:
@@ -28,15 +36,19 @@ class SpendingReportWizard(models.TransientModel):
         self.update({
             'report_ids': domain
         })
+
+        id_list = [x.id for x in self.report_ids]
+        # id_list = []
+        # for rec in self.report_ids:
+        #     id_list.append(rec.id)
         view_id = self.env.ref('purchase_inherit.spending_report_tree').id
-        # maybe get_formview_action() will be better?
         return {
             'type': 'ir.actions.act_window',
             'name': 'show spending report',
-            'view_mode': 'form',
+            'view_mode': 'tree',
             'view_id': view_id,
-            'res_model': 'spending.report.wizard',
-            'res_id': self.id,
+            'res_model': 'spending.report',
+            'domain': [('id', 'in', id_list)],
             'target': 'current',
         }
 
@@ -52,6 +64,8 @@ class SpendingReportWizard(models.TransientModel):
             'res_model': 'spending.report.wizard',
             'target': 'new',
         }
+
+    def export_excel(self):
         pass
 
 
@@ -59,10 +73,39 @@ class SpendingReport(models.TransientModel):
     _name = 'spending.report'
 
     wizard_id = fields.Many2one('spending.report.wizard', ondelete='cascade')
+    month = fields.Selection([(str(i), f"Thang {i}") for i in range(1, 13)],
+                             default=False, index=True, string='Thang', required=True)
     department_id = fields.Many2one('hr.department',
                                     string='Ten phong ban')
     spending_limit = fields.Float(related='department_id.spending_limit')
     spending = fields.Float('Chi tieu thuc te', compute='_compute_department_spending', readonly=True)
+
+    def export_excel(self):
+        pass
+        wb = openpyxl.load_workbook(
+            get_module_resource('purchase_inherit', 'static/template', 'spending_report_template.xlsx'))
+        ws = wb['Sheet1']
+        for row in range(0, len(self)):
+            ws.cell(row=row+7, column=1).value = self[row].department_id.name
+            ws.cell(row=row+7, column=2).value = self[row].spending_limit
+            ws.cell(row=row+7, column=3).value = self[row].spending_limit
+        content = BytesIO()
+        wb.save(content)
+        out = base64.encodebytes(content.getvalue())
+        self.wizard_id.file = out
+
+        view_id = self.env.ref('purchase_inherit.report_excel_exported').id
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Excel export',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'res_model': 'spending.report.wizard',
+            'res_id': self.wizard_id.id,
+            'target': 'new',
+            'flags': {'mode': 'readonly'},
+        }
 
     @api.depends('department_id')
     def _compute_department_spending(self):

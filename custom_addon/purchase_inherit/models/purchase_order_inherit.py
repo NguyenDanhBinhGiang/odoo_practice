@@ -1,6 +1,6 @@
 import datetime
 import odoo.exceptions
-from odoo import models, fields
+from odoo import models, fields, registry, api, SUPERUSER_ID
 
 
 class PurchaseOrderInherit(models.Model):
@@ -27,11 +27,22 @@ class PurchaseOrderInherit(models.Model):
                 # self.sudo().message_post(body=f'Purchase order need confirm',
                 #                          partner_ids=partner_list,
                 #                          message_type='notification')
-                self.env.cr.commit()
+
+                # self.env.cr.commit()
                 raise odoo.exceptions.UserError('Ban da vuot qua han muc quy dinh, hay doi ke toan xac nhan')
+
+                # return {
+                #     'warning': {
+                #         'title': "Warning",
+                #         'message': "Ban da vuot qua han muc quy dinh, hay doi ke toan xac nhan",
+                #     }
+                # }
 
     def create_activity(self):
         self.ensure_one()
+        # db_name = registry_get(self.env['ir.model'].sudo().search([('model', '=', 'mail.activity')]).name)
+        # with registry().cursor() as cr:
+        #     env = api.Environment(cr, SUPERUSER_ID, {})
         todos = [{
             'res_id': self.id,
             'res_model_id': self.env['ir.model'].sudo().search([('model', '=', 'purchase.order')]).id,
@@ -44,3 +55,4 @@ class PurchaseOrderInherit(models.Model):
 
         for todo in todos:
             self.env['mail.activity'].sudo().create(todo)
+            self.env.cr.commit()

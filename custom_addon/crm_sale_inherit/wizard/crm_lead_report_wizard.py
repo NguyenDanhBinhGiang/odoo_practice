@@ -6,12 +6,19 @@ from odoo import models, fields, api
 class CrmLeadReportWizard(models.TransientModel):
     _name = 'crm.lead.report.wizard'
 
-    month = fields.Selection([(str(i), f'Thang {i}') for i in range(1, 13)], string='Thang', required=True,)
-                             # default=str(datetime.datetime.now().month),)
+    name = fields.Char(compute='_compute_name')
+    month = fields.Selection([(str(i), f'Thang {i}') for i in range(1, 13)], string='Thang', required=True,
+                             default=str(datetime.datetime.now().month), )
     sale_team_ids = fields.Many2many('crm.team', string='Nhom ban hang')
+
+    @api.depends('month')
+    def _compute_name(self):
+        for rec in self:
+            rec.name = f"Bao cao thang {rec.month}"
 
     @api.model
     def get_view(self):
+
         view_id = self.env.ref('crm_sale_inherit.crm_report_form').id
         # maybe get_formview_action() will be better?
         return {
@@ -39,5 +46,5 @@ class CrmLeadReportWizard(models.TransientModel):
             'res_model': 'crm.lead',
             'target': 'current',
             'domain': domain,
-        }
+            'context': {'group_by': ['team_id', ]}, }
         pass

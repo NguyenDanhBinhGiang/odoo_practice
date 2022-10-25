@@ -6,6 +6,8 @@ class CrmLeadInherit(models.Model):
     _inherit = 'crm.lead'
     _sql_constraints = [('min_revenue_check', 'CHECK(min_revenue>0)', 'Doanh thu toi thieu phai >0')]
 
+    # FIXME: add currency
+    # TODO: related, count
     min_revenue = fields.Float('Doanh thu toi thieu')
     total_real_income = fields.Float('Doanh thu thuc te', compute='_compute_total_real_income')
     month_open = fields.Integer(compute='_compute_month_opened', store=True)
@@ -20,6 +22,7 @@ class CrmLeadInherit(models.Model):
 
     def _compute_total_real_income(self):
         """Compute total income from sale ORDER"""
+        # FIXME: wrong values
         for rec in self:
             orders_income = [x.amount_total for x in rec.order_ids if x.state == 'sale']
             rec.total_real_income = sum(orders_income)

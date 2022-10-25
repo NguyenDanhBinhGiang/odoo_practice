@@ -25,7 +25,7 @@ class CrmPurchaseReport(http.Controller):
         ]
         result = request.env['monthly.report'].sudo().search(domain)
         if len(result) < 1:
-            request.env['monthly.report'].sudo().create_report(month, year)
+            return json.dumps({})
         result = request.env['monthly.report'].sudo().search(domain)[0]
         data = {
             'sales': [{
