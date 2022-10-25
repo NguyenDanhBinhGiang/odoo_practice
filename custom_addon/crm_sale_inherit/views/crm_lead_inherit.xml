@@ -9,7 +9,7 @@
                 <field name="user_id"/>
                 <field name="team_id"/>
                 <field name="min_revenue"/>
-                <field name="total_real_income"/>
+                <field name="sale_amount_total"/>
             </tree>
         </field>
     </record>

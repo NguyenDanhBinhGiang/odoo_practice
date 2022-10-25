@@ -1,7 +1,7 @@
 {
     'name': "CRM and Purchase Report",
     'category': 'Administration',
-    'depends': ['crm_sale_inherit', 'purchase_inherit'],
+    'depends': ['base', 'crm_sale_inherit', 'purchase_inherit'],
     'data': [
         'security/ir.model.access.csv',
         'data/cron.xml',

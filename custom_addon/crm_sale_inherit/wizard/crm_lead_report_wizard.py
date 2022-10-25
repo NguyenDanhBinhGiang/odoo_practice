@@ -11,7 +11,6 @@ class CrmLeadReportWizard(models.TransientModel):
                              default=str(datetime.datetime.now().month), )
     sale_team_ids = fields.Many2many('crm.team', string='Nhom ban hang')
 
-    @api.depends('month')
     def _compute_name(self):
         for rec in self:
             rec.name = f"Bao cao thang {rec.month}"

@@ -4,8 +4,8 @@
     'category': 'Administration',
     'depends': ['base', 'hr', 'purchase'],
     'data': [
-        'security/ir.model.access.csv',
         'security/group.xml',
+        'security/ir.model.access.csv',
         'data/data.xml',
         'views/department_view_inherit.xml',
         'views/purchase_order_view_inherit.xml',
