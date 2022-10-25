@@ -7,7 +7,6 @@ import openpyxl
 from odoo.modules import get_module_resource
 
 
-# TODO: export exel
 class SpendingReportWizard(models.TransientModel):
     _name = 'spending.report.wizard'
 
@@ -86,9 +85,9 @@ class SpendingReport(models.TransientModel):
             get_module_resource('purchase_inherit', 'static/template', 'spending_report_template.xlsx'))
         ws = wb['Sheet1']
         for row in range(0, len(self)):
-            ws.cell(row=row+7, column=1).value = self[row].department_id.name
-            ws.cell(row=row+7, column=2).value = self[row].spending_limit
-            ws.cell(row=row+7, column=3).value = self[row].spending_limit
+            ws.cell(row=row + 7, column=1).value = self[row].department_id.name
+            ws.cell(row=row + 7, column=2).value = self[row].spending_limit
+            ws.cell(row=row + 7, column=3).value = self[row].spending_limit
         content = BytesIO()
         wb.save(content)
         out = base64.encodebytes(content.getvalue())

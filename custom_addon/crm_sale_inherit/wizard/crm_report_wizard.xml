@@ -1,6 +1,4 @@
 <odoo>
-    <!--    TODO: create =false, group by sale team, sale person-->
-
     <record id="crm_report_form_search" model="ir.ui.view">
         <field name="model">crm.lead.report.wizard</field>
         <field name="arch" type="xml">

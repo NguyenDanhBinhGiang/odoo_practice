@@ -7,10 +7,30 @@ class CrmLeadInherit(models.Model):
     _sql_constraints = [('min_revenue_check', 'CHECK(min_revenue>0)', 'Doanh thu toi thieu phai >0')]
 
     # FIXME: add currency
-    # TODO: related, count
-    min_revenue = fields.Float('Doanh thu toi thieu')
-    total_real_income = fields.Float('Doanh thu thuc te', compute='_compute_total_real_income')
+    # TODO: related
+    min_revenue = fields.Monetary('Doanh thu toi thieu', currency_field='company_currency')
+    total_real_income = fields.Monetary('Doanh thu thuc te', currency_field='company_currency',
+                                        compute='_compute_total_real_income')
     month_open = fields.Integer(compute='_compute_month_opened', store=True)
+
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        """
+        override read_group to allow computed field total_real_income to have sum in group by search view.
+        store=True works too.
+        """
+        res = super(CrmLeadInherit, self).read_group(domain, fields, groupby, offset=offset, limit=limit,
+                                                     orderby=orderby, lazy=lazy)
+        if 'total_real_income' in fields:
+            for line in res:
+                if '__domain' in line:
+                    lines = self.search(line['__domain'])
+                    sum_total_real_income = 0.0
+                    for record in lines:
+                        sum_total_real_income += record.total_real_income
+                    line['total_real_income'] = sum_total_real_income
+
+        return res
 
     @api.depends('date_open')
     def _compute_month_opened(self):

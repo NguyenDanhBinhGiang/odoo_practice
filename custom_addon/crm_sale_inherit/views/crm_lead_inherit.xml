@@ -21,6 +21,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="min_revenue" attrs="{'readonly': [('quotation_count', '>', 0)]}"/>
+                <field name="company_currency" widget="many2one"/>
             </xpath>
         </field>
     </record>

@@ -29,7 +29,6 @@ class CrmLeadReportWizard(models.TransientModel):
             'res_model': 'crm.lead.report.wizard',
             'target': 'new',
         }
-        pass
 
     def show_report_btn(self):
         self.ensure_one()
@@ -47,4 +46,3 @@ class CrmLeadReportWizard(models.TransientModel):
             'target': 'current',
             'domain': domain,
             'context': {'group_by': ['team_id', ]}, }
-        pass
