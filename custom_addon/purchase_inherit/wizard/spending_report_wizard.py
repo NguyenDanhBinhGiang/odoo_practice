@@ -72,22 +72,21 @@ class SpendingReport(models.TransientModel):
     _name = 'spending.report'
 
     wizard_id = fields.Many2one('spending.report.wizard', ondelete='cascade')
-    month = fields.Selection([(str(i), f"Thang {i}") for i in range(1, 13)],
-                             default=False, index=True, string='Thang', required=True)
+    # month = fields.Selection([(str(i), f"Thang {i}") for i in range(1, 13)],
+    #                          default=False, index=True, string='Thang', required=True)
     department_id = fields.Many2one('hr.department',
                                     string='Ten phong ban')
     spending_limit = fields.Float(related='department_id.spending_limit')
     spending = fields.Float('Chi tieu thuc te', compute='_compute_department_spending', readonly=True)
 
     def export_excel(self):
-        pass
         wb = openpyxl.load_workbook(
             get_module_resource('purchase_inherit', 'static/template', 'spending_report_template.xlsx'))
         ws = wb['Sheet1']
         for row in range(0, len(self)):
             ws.cell(row=row + 7, column=1).value = self[row].department_id.name
             ws.cell(row=row + 7, column=2).value = self[row].spending_limit
-            ws.cell(row=row + 7, column=3).value = self[row].spending_limit
+            ws.cell(row=row + 7, column=3).value = self[row].spending
         content = BytesIO()
         wb.save(content)
         out = base64.encodebytes(content.getvalue())

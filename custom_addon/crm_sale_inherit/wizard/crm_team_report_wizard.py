@@ -6,9 +6,13 @@ from odoo import models, fields, api
 class CrmLeadReportWizard(models.TransientModel):
     _name = 'crm.team.report.wizard'
 
+    def default_currency(self):
+        return self.env.company.currency_id.id
+
     month = fields.Selection([(str(i), f'Thang {i}') for i in range(1, 13)], string='Thang', required=True, )
     sale_team_ids = fields.Many2many('crm.team', string='Nhom ban hang')
     team_report_ids = fields.One2many('crm.team.report', 'wizard_id')
+    currency_id = fields.Many2one('res.currency', default=default_currency)
 
     @api.model
     def get_view(self):
@@ -51,21 +55,33 @@ class CrmTeamReport(models.TransientModel):
     _name = 'crm.team.report'
 
     wizard_id = fields.Many2one('crm.team.report.wizard', invisible=True)
+    currency_id = fields.Many2one(related='wizard_id.currency_id')
     team_id = fields.Many2one('crm.team', string='Nhom ban hang')
-    real_revenue = fields.Float(compute='_compute_report', string='Doanh thu thuc te')
-    expected_revenue = fields.Float(compute='_compute_report', string='Chi tieu doanh thu')
+    real_revenue = fields.Monetary(compute='_compute_report', string='Doanh thu thuc te',
+                                   currency_field='currency_id')
+    expected_revenue = fields.Monetary(compute='_compute_report', string='Chi tieu doanh thu',
+                                       currency_field='currency_id')
 
+    # noinspection PyProtectedMember
     @api.depends('team_id')
     def _compute_report(self):
         for rec in self:
+            rec.expected_revenue = getattr(rec.team_id, f"chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
+
+            # Get orders
             def filter_month(f_rec):
                 return f_rec.date_open.month == int(rec.wizard_id.month)
-
-            rec.expected_revenue = getattr(rec.team_id, f"chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
 
             orders = self.env['crm.lead'].search(
                 [('team_id.id', '=', rec.team_id.id)]
             ).filtered(filter_month).mapped('order_ids')
-            orders_revenue = [x.amount_untaxed for x in orders if x.state == 'sale']
+            orders = [x for x in orders if x.state not in ('draft', 'sent', 'cancel')]
 
-            rec.real_revenue = sum(orders_revenue)
+            # calculates total revenue in one currency
+            total_revenue = 0.0
+            currency_to_show = rec.currency_id
+            for order in orders:
+                total_revenue += order.currency_id._convert(
+                    order.amount_untaxed, currency_to_show, order.company_id, order.date_order or fields.Date.today())
+
+            rec.real_revenue = total_revenue

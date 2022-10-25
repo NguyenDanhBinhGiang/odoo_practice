@@ -9,7 +9,7 @@
                 <field name="user_id"/>
                 <field name="team_id"/>
                 <field name="min_revenue"/>
-                <field name="sale_amount_total"/>
+                <field name="sale_amount_total" string="Doanh thu thuc te"/>
             </tree>
         </field>
     </record>
