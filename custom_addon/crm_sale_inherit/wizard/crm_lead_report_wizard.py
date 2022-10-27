@@ -44,4 +44,5 @@ class CrmLeadReportWizard(models.TransientModel):
             'res_model': 'crm.lead',
             'target': 'current',
             'domain': domain,
-            'context': {'group_by': ['team_id', ]}, }
+            'context': {'search_default_saleschannel': 1, 'search_default_salesperson': 2, },
+        }

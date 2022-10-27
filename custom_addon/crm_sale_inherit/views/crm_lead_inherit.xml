@@ -1,30 +1,40 @@
 <odoo>
-<data>
-<!--    TODO: default search, not context only-->
-    <record model="ir.ui.view" id="crm_lead_report_view">
-        <field name="name">Lead report view</field>
-        <field name="model">crm.lead</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="user_id"/>
-                <field name="team_id"/>
-                <field name="min_revenue"/>
-                <field name="sale_amount_total" string="Doanh thu thuc te"/>
-            </tree>
-        </field>
-    </record>
+    <data>
+        <record model="ir.ui.view" id="crm_lead_report_view">
+            <field name="name">Lead report view</field>
+            <field name="model">crm.lead</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="team_id"/>
+                    <field name="min_revenue"/>
+                    <field name="sale_amount_total" string="Doanh thu thuc te"/>
+                </tree>
+            </field>
+        </record>
 
-    <record id="crm_form_inherit" model="ir.ui.view">
-        <field name="name">change CRM form</field>
-        <field name="model">crm.lead</field>
-        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='company_id']" position="after">
-                <field name="min_revenue" attrs="{'readonly': [('quotation_count', '>', 0)]}"/>
-                <field name="company_currency" widget="many2one"/>
-            </xpath>
-        </field>
-    </record>
-</data>
+<!--        <record id="cr_search_inherit" model="ir.ui.view">-->
+<!--            <field name="name">change CRM search</field>-->
+<!--            <field name="model">crm.lead</field>-->
+<!--            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//filter[@name='saleschannel']" position="after">-->
+<!--                    <filter string="Sales Team+Person" name="salesteamperson" context="{'group_by':['team_id', 'user_id']}"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="crm_form_inherit" model="ir.ui.view">
+            <field name="name">change CRM form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="min_revenue" attrs="{'readonly': [('quotation_count', '>', 0)]}"/>
+                    <field name="company_currency" widget="many2one"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
