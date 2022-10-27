@@ -1,5 +1,5 @@
 import base64
-
+from copy import copy
 from odoo import models, fields, api
 from io import BytesIO
 import openpyxl
@@ -11,7 +11,7 @@ class SpendingReportWizard(models.TransientModel):
     _name = 'spending.report.wizard'
 
     month = fields.Selection([(str(i), f"Thang {i}") for i in range(1, 13)],
-                             default=False, index=True, string='Thang', required=True)
+                             default=str(fields.Date.today().month), index=True, string='Thang', required=True)
 
     department_ids = fields.Many2many('hr.department', 'spending_report_wizard_department_rel',
                                       string='Phong ban')
@@ -66,6 +66,7 @@ class SpendingReportWizard(models.TransientModel):
 
     def export_excel(self):
         pass
+        print('abc')
 
 
 class SpendingReport(models.TransientModel):
@@ -81,18 +82,29 @@ class SpendingReport(models.TransientModel):
     spending = fields.Monetary('Chi tieu thuc te', compute='_compute_department_spending',
                                currency_field='currency_id', readonly=True)
 
+    # noinspection PyProtectedMember
     def export_excel(self):
         wb = openpyxl.load_workbook(
             get_module_resource('purchase_inherit', 'static/template', 'spending_report_template.xlsx'))
         ws = wb['Sheet1']
-        for row in range(0, len(self)):
-            ws.cell(row=row + 7, column=1).value = self[row].department_id.name
-            ws.cell(row=row + 7, column=2).value = self[row].spending_limit
-            ws.cell(row=row + 7, column=3).value = self[row].spending
+
+        records = self
+        if len(records) < 1:
+            records = self.search(self.env.context['active_domain'])
+        for row in range(0, len(records)):
+            ws.cell(row=row + 7, column=1).value = records[row].department_id.name
+            ws.cell(row=row + 7, column=1)._style = copy(ws.cell(row=6, column=1)._style)
+            
+            ws.cell(row=row + 7, column=2).value = records[row].spending_limit
+            ws.cell(row=row + 7, column=1)._style = copy(ws.cell(row=6, column=1)._style)
+
+            ws.cell(row=row + 7, column=3).value = records[row].spending
+            ws.cell(row=row + 7, column=1)._style = copy(ws.cell(row=6, column=1)._style)
+
         content = BytesIO()
         wb.save(content)
         out = base64.encodebytes(content.getvalue())
-        self.wizard_id.file = out
+        records[0].wizard_id.file = out
 
         view_id = self.env.ref('purchase_inherit.report_excel_exported').id
 
@@ -102,7 +114,7 @@ class SpendingReport(models.TransientModel):
             'view_mode': 'form',
             'view_id': view_id,
             'res_model': 'spending.report.wizard',
-            'res_id': self.wizard_id.id,
+            'res_id': records[0].wizard_id.id,
             'target': 'new',
             'flags': {'mode': 'readonly'},
         }

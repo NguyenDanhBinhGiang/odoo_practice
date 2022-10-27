@@ -62,6 +62,8 @@
                         <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.department_id.name" /></td>
                         <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.total_spending" /></td>
                         <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.spending_diff" /></td>
+
+<!--                        <td style="border: 1px solid black; border-collapse: collapse;"><span t-field="purchase_line.spending_diff" /></td>-->
                     </tr>
                 </table>
 

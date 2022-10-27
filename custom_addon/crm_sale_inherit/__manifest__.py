@@ -1,7 +1,7 @@
 {
     'name': "crm_sale_inherit",
     'category': 'Administration',
-    'depends': ['base', 'crm', 'sale_management', 'sale_crm'],
+    'depends': ['base', 'crm', 'sale_management', 'sale_crm', 'bai3', 'tree_button'],
     'data': [
         'security/group.xml',
         'security/security_rules.xml',

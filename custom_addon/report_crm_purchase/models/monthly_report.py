@@ -11,7 +11,11 @@ class MonthlyReport(models.Model):
     purchase_report_ids = fields.One2many('monthly.purchase.report.line', 'report_id', ondelete='cascade')
     email_to = fields.Many2many('res.users')
 
+    def default_currency(self):
+        return self.env.user.company_id.currency_id
+
     name = fields.Char(compute='_compute_name')
+    currency_id = fields.Many2one('res.currency', default=default_currency)
 
     month = fields.Integer('Thang', required=True)
     year = fields.Integer('Nam', required=True)
@@ -81,8 +85,11 @@ class MonthlySaleReport(models.Model):
 
     report_id = fields.Many2one('monthly.report', ondelete='cascade')
     sale_team_id = fields.Many2one('crm.team', 'Ten nhom ban hang')
-    total_revenue = fields.Float('Doanh thu thuc te', compute='_compute_report', store=True)
-    revenue_diff = fields.Float('Chenh lech doanh thu', compute='_compute_report', store=True)
+    currency_id = fields.Many2one('res.currency', related='report_id.currency_id')
+    total_revenue = fields.Monetary('Doanh thu thuc te', currency_field='currency_id',
+                                    compute='_compute_report', store=True)
+    revenue_diff = fields.Monetary('Chenh lech doanh thu', currency_field='currency_id',
+                                   compute='_compute_report', store=True)
 
     @api.depends('sale_team_id')
     def _compute_report(self):
@@ -106,8 +113,11 @@ class MonthlyPurchaseReport(models.Model):
 
     report_id = fields.Many2one('monthly.report', ondelete='cascade')
     department_id = fields.Many2one('hr.department', 'Ten phong ban')
-    total_spending = fields.Float('Chi tieu thuc te', compute='_compute_report', store=True)
-    spending_diff = fields.Float('Chenh lech chi tieu', compute='_compute_report', store=True)
+    currency_id = fields.Many2one('res.currency', related='report_id.currency_id')
+    total_spending = fields.Monetary('Chi tieu thuc te', currency_field='currency_id',
+                                     compute='_compute_report', store=True)
+    spending_diff = fields.Monetary('Chenh lech chi tieu', currency_field='currency_id',
+                                    compute='_compute_report', store=True)
 
     @api.depends('department_id')
     def _compute_report(self):

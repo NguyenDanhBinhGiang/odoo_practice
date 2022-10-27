@@ -1,91 +1,114 @@
 <odoo>
-  <data>
-    <record id="sale_team_form_inherit" model="ir.ui.view">
-        <field name="name">change sale team form</field>
-        <field name="model">crm.team</field>
-        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='members_users']" position="after">
-                <page string="chi tieu doanh so" name="chi_tieu_doanh_so"
-                groups="crm_sale_inherit.sale_department_manager">
-<!--                    <button name="stop_btn" string="stop for debug" type="object"/><br/>-->
+    <data>
+        <record id="sale_team_form_inherit" model="ir.ui.view">
+            <field name="name">change sale team form</field>
+            <field name="model">crm.team</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='members_users']" position="after">
+                    <page string="chi tieu doanh so" name="chi_tieu_doanh_so"
+                          groups="crm_sale_inherit.sale_department_manager">
+                        <button name="stop_btn" string="stop for debug" type="object"/>
+                        <br/>
+                        <!--                        <form>-->
+                        <!--                            <field name="currency_id" invisible="0"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_1"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_2"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_3"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_4"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_5"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_6"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_7"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_8"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_9"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_10"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_11"/>-->
+                        <!--                            <field name="chi_tieu_doanh_so_thang_12"/>-->
+                        <!--                        </form>-->
 
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 1: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_1"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 2: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_2"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 3: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_3"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 4: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_4"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 5: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_5"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 6: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_6"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 7: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_7"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 8: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_8"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 9: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_9"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 10: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_10"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 11: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_11"/>
-                        </td>
-                    </tr>
-                    <tr t-foreach="range(1,13)" t-as="i">
-                        <td>Thang 12: </td>
-                        <td>
-                            <field name="chi_tieu_doanh_so_thang_12"/>
-                        </td>
-                    </tr>
+                        <!-- FIXME: not show up-->
+                        <tr>
+                            <td>Don vi tien:</td>
+                            <td>
+                                <field name="currency_id"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 1:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_1"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 2:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 3:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_3"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 4:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_4"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 5:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_5"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 6:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_6"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 7:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_7"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 8:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_8"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 9:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_9"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 10:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 11:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_11"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thang 12:</td>
+                            <td>
+                                <field name="chi_tieu_doanh_so_thang_12"/>
+                            </td>
+                        </tr>
 
-                </page>
-            </xpath>
-        </field>
-    </record>
-  </data>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
