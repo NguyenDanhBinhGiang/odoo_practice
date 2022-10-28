@@ -38,7 +38,7 @@ class CrmLeadReportWizard(models.TransientModel):
             domain += [('team_id.id', 'in', self.sale_team_ids.mapped('id')), ]
         return {
             'type': 'ir.actions.act_window',
-            # 'name': 'Show spending report form',
+            'name': f'Bao cao thang {self.month}',
             'view_mode': 'tree',
             'view_id': view_id,
             'res_model': 'crm.lead',

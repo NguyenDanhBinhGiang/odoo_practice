@@ -10,27 +10,11 @@
                           groups="crm_sale_inherit.sale_department_manager">
                         <button name="stop_btn" string="stop for debug" type="object"/>
                         <br/>
-                        <!--                        <form>-->
-                        <!--                            <field name="currency_id" invisible="0"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_1"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_2"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_3"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_4"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_5"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_6"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_7"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_8"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_9"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_10"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_11"/>-->
-                        <!--                            <field name="chi_tieu_doanh_so_thang_12"/>-->
-                        <!--                        </form>-->
 
-                        <!-- FIXME: not show up-->
                         <tr>
                             <td>Don vi tien:</td>
                             <td>
-                                <field name="currency_id"/>
+                                <field name="expected_revenue_currency_id"/>
                             </td>
                         </tr>
                         <tr>

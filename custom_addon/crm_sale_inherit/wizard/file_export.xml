@@ -1,0 +1,12 @@
+<odoo>
+    <record id="excel_report_export" model="ir.ui.view">
+        <field name="name">Bao cao excel</field>
+        <field name="model">file.export</field>
+        <field name="arch" type="xml">
+            <form readonly="1" create="0" edit="0">
+                <field name="file_name"/>
+                <field name="file"/>
+            </form>
+        </field>
+    </record>
+</odoo>
