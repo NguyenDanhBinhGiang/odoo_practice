@@ -2,6 +2,7 @@ import base64
 from copy import copy
 from odoo import models, fields, api
 from io import BytesIO
+# noinspection PyPackageRequirements
 import openpyxl
 
 from odoo.modules import get_module_resource
@@ -63,10 +64,6 @@ class SpendingReportWizard(models.TransientModel):
             'res_model': 'spending.report.wizard',
             'target': 'new',
         }
-
-    def export_excel(self):
-        pass
-        print('abc')
 
 
 class SpendingReport(models.TransientModel):

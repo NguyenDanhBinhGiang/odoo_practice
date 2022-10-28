@@ -3,6 +3,7 @@ from copy import copy
 from io import BytesIO
 from typing import Iterable
 
+# noinspection PyPackageRequirements
 import openpyxl
 
 import odoo.exceptions
@@ -25,6 +26,7 @@ class CrmLeadInherit(models.Model):
             else:
                 rec.month_open = False
 
+    # noinspection PyUnresolvedReferences
     @api.constrains('user_id')
     def assign_constraint(self):
         if not self.user_id.sale_team_id == self.env.user.sale_team_id:
@@ -126,7 +128,7 @@ class CrmLeadInherit(models.Model):
         # sum of everything
         row += 1
         ws.cell(row=row, column=4).value = "Tong"
-        ws.cell(row=row, column=4)._style = copy(ws.cell(row=4, column=3)._style)
+        ws.cell(row=row, column=4)._style = copy(ws.cell(row=4, column=4)._style)
         value = f'=SUM({",".join(f"E{i}" for i in sum_rows)})'
         ws.cell(row=row, column=5).value = value
 
@@ -140,11 +142,15 @@ class CrmLeadInherit(models.Model):
         ws.cell(row=4, column=3).value = None
         ws.cell(row=4, column=3)._style = copy(ws.cell(row=99, column=99)._style)
 
+        ws.cell(row=4, column=4).value = None
+        ws.cell(row=4, column=4)._style = copy(ws.cell(row=99, column=99)._style)
+
         # save it
         content = BytesIO()
         wb.save(content)
         return base64.encodebytes(content.getvalue())
 
+    # noinspection PyShadowingNames,SpellCheckingInspection
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         """
@@ -164,6 +170,7 @@ class CrmLeadInherit(models.Model):
 
         return res
 
+    # noinspection PyUnresolvedReferences
     def write(self, vals):
         if self.quotation_count > 0 and 'min_revenue' in vals:
             raise odoo.exceptions.UserError('Ban ko the edit tiem nang khi quotation_count > 0')

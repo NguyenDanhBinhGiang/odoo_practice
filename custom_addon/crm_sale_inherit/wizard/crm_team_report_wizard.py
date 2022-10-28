@@ -47,6 +47,7 @@ class CrmLeadReportWizard(models.TransientModel):
         })
 
         view_id = self.env.ref('crm_sale_inherit.team_report_tree').id
+        # noinspection PyUnresolvedReferences
         return {
             'type': 'ir.actions.act_window',
             'name': 'Bao cao chi tiet',
@@ -76,7 +77,8 @@ class CrmTeamReport(models.TransientModel):
             rec.expected_revenue = getattr(rec.team_id, f"chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
             rec.expected_revenue = rec.team_id.expected_revenue_currency_id._convert(
                 rec.expected_revenue, rec.report_currency_id,
-                rec.team_id.company_id or self.env.user.company_id, datetime.date.today().replace(month=int(rec.wizard_id.month))
+                rec.team_id.company_id or self.env.user.company_id,
+                datetime.date.today().replace(month=int(rec.wizard_id.month))
             )
 
             # Get orders

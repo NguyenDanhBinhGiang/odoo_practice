@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode,ES6ConvertVarToLetConst,JSUnresolvedVariable,NpmUsedModulesInstalled,EqualityComparisonWithCoercionJS
+
 odoo.define('tree_view_header_buttons.tree_view_button', function (require){
     "use strict";
 

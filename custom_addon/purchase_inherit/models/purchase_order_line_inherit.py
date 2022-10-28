@@ -1,5 +1,3 @@
-from typing import Union
-
 from odoo import models, fields, api
 import random
 

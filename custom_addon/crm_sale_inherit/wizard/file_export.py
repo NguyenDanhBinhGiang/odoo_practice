@@ -11,6 +11,7 @@ class FileExport(models.Model):
         self.ensure_one()
         view_id = self.env.ref('crm_sale_inherit.excel_report_export').id
 
+        # noinspection PyUnresolvedReferences
         return {
             'type': 'ir.actions.act_window',
             'name': 'Excel export',

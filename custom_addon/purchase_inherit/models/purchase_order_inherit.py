@@ -1,13 +1,15 @@
 import datetime
 import odoo.exceptions
-from odoo import models, fields, registry, api, SUPERUSER_ID
+from odoo import models, fields
 
 
+# noinspection GrazieInspection
 class PurchaseOrderInherit(models.Model):
     _inherit = 'purchase.order'
 
     department_id = fields.Many2one('hr.department', string='Phong ban')
 
+    # noinspection PyUnresolvedReferences,PyProtectedMember
     def over_spending_limit(self):
         self.ensure_one()
 
@@ -16,9 +18,12 @@ class PurchaseOrderInherit(models.Model):
 
         spending_limit = self.env['spending.limit'].sudo().search([]).filtered(correct_user)
         limit_currency = spending_limit.currency_id
-        converted_amount = self.currency_id._convert(self.amount_untaxed, limit_currency, self.company_id, fields.Date.today())
+        converted_amount = self.currency_id._convert(
+            self.amount_untaxed, limit_currency, self.company_id, fields.Date.today()
+        )
         return converted_amount > spending_limit.limit
 
+    # noinspection PyUnresolvedReferences
     def button_confirm(self):
         for rec in self:
             if not rec.over_spending_limit() or self.user_has_groups('purchase_inherit.invoice_employee'):
@@ -45,6 +50,7 @@ class PurchaseOrderInherit(models.Model):
         # db_name = registry_get(self.env['ir.model'].sudo().search([('model', '=', 'mail.activity')]).name)
         # with registry().cursor() as cr:
         #     env = api.Environment(cr, SUPERUSER_ID, {})
+        # noinspection PyUnresolvedReferences
         todos = [{
             'res_id': self.id,
             'res_model_id': self.env['ir.model'].sudo().search([('model', '=', 'purchase.order')]).id,
