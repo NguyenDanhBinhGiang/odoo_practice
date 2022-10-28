@@ -9,10 +9,17 @@ class CrmLeadReportWizard(models.TransientModel):
     def default_currency(self):
         return self.env.company.currency_id.id
 
-    month = fields.Selection([(str(i), f'Thang {i}') for i in range(1, 13)], string='Thang', required=True, )
+    month = fields.Selection([(str(i), f'Thang {i}') for i in range(1, 13)], string='Thang',
+                             default=str(datetime.date.today().month), required=True, )
     sale_team_ids = fields.Many2many('crm.team', string='Nhom ban hang')
     team_report_ids = fields.One2many('crm.team.report', 'wizard_id')
     currency_id = fields.Many2one('res.currency', default=default_currency)
+    name = fields.Char(compute='_compute_name')
+
+    @api.depends('month')
+    def _compute_name(self):
+        for rec in self:
+            rec.name = f"Bao cao danh gia chi tieu thang {rec.month}"
 
     @api.model
     def get_view(self):
@@ -55,18 +62,22 @@ class CrmTeamReport(models.TransientModel):
     _name = 'crm.team.report'
 
     wizard_id = fields.Many2one('crm.team.report.wizard', invisible=True)
-    currency_id = fields.Many2one(related='wizard_id.currency_id')
     team_id = fields.Many2one('crm.team', string='Nhom ban hang')
+    report_currency_id = fields.Many2one(related='wizard_id.currency_id')
     real_revenue = fields.Monetary(compute='_compute_report', string='Doanh thu thuc te',
-                                   currency_field='currency_id')
+                                   currency_field='report_currency_id')
     expected_revenue = fields.Monetary(compute='_compute_report', string='Chi tieu doanh thu',
-                                       currency_field='currency_id')
+                                       currency_field='report_currency_id')
 
     # noinspection PyProtectedMember
     @api.depends('team_id')
     def _compute_report(self):
         for rec in self:
             rec.expected_revenue = getattr(rec.team_id, f"chi_tieu_doanh_so_thang_{rec.wizard_id.month}")
+            rec.expected_revenue = rec.team_id.expected_revenue_currency_id._convert(
+                rec.expected_revenue, rec.report_currency_id,
+                rec.team_id.company_id or self.env.user.company_id, datetime.date.today().replace(month=int(rec.wizard_id.month))
+            )
 
             # Get orders
             def filter_month(f_rec):
@@ -79,9 +90,9 @@ class CrmTeamReport(models.TransientModel):
 
             # calculates total revenue in one currency
             total_revenue = 0.0
-            currency_to_show = rec.currency_id
             for order in orders:
                 total_revenue += order.currency_id._convert(
-                    order.amount_untaxed, currency_to_show, order.company_id, order.date_order or fields.Date.today())
+                    order.amount_untaxed, rec.report_currency_id, order.company_id,
+                    order.date_order or fields.Date.today())
 
             rec.real_revenue = total_revenue

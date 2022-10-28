@@ -3,11 +3,12 @@
         <field name="name">Bao cao chi tiet</field>
         <field name="model">crm.team.report.wizard</field>
         <field name="arch" type="xml">
-            <form readonly="True">
+            <form readonly="True" edit="0" create="0">
                 <sheet>
                     <field name="team_report_ids" mode="tree" widget="one2many" readonly="True">
                         <tree>
                             <field name="team_id" widget="many2one_tags"/>
+                            <field name="report_currency_id" invisible="1"/>
                             <field name="real_revenue"/>
                             <field name="expected_revenue"/>
                         </tree>
@@ -29,6 +30,10 @@
                     <group>
                         <field name="sale_team_ids" widget="many2many_tags"/>
                     </group>
+                    <group>
+                        <field name="currency_id"/>
+                    </group>
+
                 </group>
 
                 <footer>

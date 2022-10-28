@@ -9,3 +9,5 @@ acl_crm_team_report_wizard_manager,crm_team_report_wizard,model_crm_team_report_
 
 acl_crm_report_team_admin,crm_team_report,model_crm_team_report,base.group_system,1,1,1,1
 acl_crm_team_report_manager,crm_team_report,model_crm_team_report,crm_sale_inherit.sale_department_manager,1,1,1,1
+
+acl_file_export_users,file_export,model_file_export,base.group_user,1,1,1,1

@@ -10,5 +10,6 @@
         'views/crm_lead_inherit.xml',
         'wizard/crm_report_wizard.xml',
         'wizard/crm_team_report_wizard.xml',
+        'wizard/file_export.xml',
     ],
 }
