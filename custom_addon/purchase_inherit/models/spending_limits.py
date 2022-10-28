@@ -30,7 +30,7 @@ class SpendingLimit(models.Model):
     _name = 'spending.limit'
     _sql_constraints = [
         ('not_null_employee', 'UNIQUE(employee_id not null)', 'Employee can not be null'),
-        ('unique_employee', 'UNIQUE(employee_id)', 'Duplicated employee'),
+        ('unique_employee', 'UNIQUE(employee_id, config_id)', 'Duplicated employee'),
         ('check_limit', 'CHECK(limit>0)', 'Limit must be greater than 0'),
     ]
 
