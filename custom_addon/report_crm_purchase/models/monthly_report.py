@@ -56,7 +56,7 @@ class MonthlyReport(models.Model):
             'month': month,
             'year': year,
             'email_to': [(5,)] + [(4, x.id)
-                                  for x in self.env.ref('crm_sale_inherit.sale_department_manager').users[1]],
+                                  for x in self.env.ref('crm_sale_inherit.sale_department_manager').users],
             'sale_report_ids': [(5,)] + [(0, 0, {'sale_team_id': x.id})
                                          for x in self.env['crm.team'].sudo().search([])],
             'purchase_report_ids': [(5,)] + [(0, 0, {'department_id': x.id})

@@ -44,8 +44,8 @@ class CrmLeadInherit(models.Model):
     @staticmethod
     def sorted_unique(in_arr: Iterable) -> list:
         """
-        Return a sorted list of unique elements in an Iterable
-        @param in_arr: Iterable
+        Return a sorted list of unique elements in an Iterable object
+        @param in_arr: Iterable object
         @return: list
         """
         result = list(set(in_arr))
