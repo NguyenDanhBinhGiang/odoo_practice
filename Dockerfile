@@ -1,3 +1,4 @@
+# Default dockerfile from github
 FROM debian:bullseye-slim
 MAINTAINER Odoo S.A. <info@odoo.com>
 

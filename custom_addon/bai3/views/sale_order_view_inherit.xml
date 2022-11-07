@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+    <!--      button to business plan form-->
+    <record id="to_business_plan_form" model="ir.ui.view">
+        <field name="name">TO plan</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send']" position="replace">
+                <field name="business_plan" invisible="True"/>
+                <button name="open_plan_form" type="object"
+                    string="Create plan" class="oe_highlight"
+                    attrs="{'invisible': [('display_business_plan_tag', '!=', False)]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="replace">
+                <field name="display_business_plan_tag" readonly="True" widget="many2one_tags"/>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>
