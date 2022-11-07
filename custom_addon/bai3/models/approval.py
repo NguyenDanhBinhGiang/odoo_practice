@@ -28,10 +28,10 @@ class Approval(models.Model):
             record.btn_visible = is_correct_user and plan_is_waiting_for_approve and not approval_gave
 
     def write(self, vals):
-        # FIXME: this causes users not in group unable to sent plan
-        # if not self.user_has_groups('bai3.business_plan_manager'):
-        #     if 'approve_state' in vals:
-        #         raise odoo.exceptions.UserError('You do not have permission!')
+        if not self.user_has_groups('bai3.business_plan_manager'):
+            if 'approve_state' in vals:
+                if vals['approve_state'] in ('approved', 'declined'):
+                    raise odoo.exceptions.UserError('You do not have permission!')
         return super(Approval, self).write(vals)
 
     @api.model
