@@ -58,7 +58,6 @@ LICENSE
 MANIFEST.in
 odoo/
 odoo-bin
-README.md
 requirements.txt
 SECURITY.md
 setup/
