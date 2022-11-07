@@ -1,0 +1,21 @@
+version: "0.1"
+services:
+  postgres:
+    image: "postgres:12"
+    volumes:
+      - /home/mk2_w/backup:/mnt/backup
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=odoo
+    ports:
+      - "5434:5432"
+    container_name: odoo-db
+  odoo:
+    build: .
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./custom_addon:/mnt/extra-addons
+    container_name: odoo-practice
+
