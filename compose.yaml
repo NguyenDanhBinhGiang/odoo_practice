@@ -14,9 +14,14 @@ services:
 
   odoo:
     build: .
+#      context: .
+#      dockerfile: Dockerfile
+#      target: final
     ports:
       - "8069:8069"
     volumes:
       - ./custom_addon:/mnt/extra-addons
     container_name: odoo-practice
+    depends_on:
+      - "postgres"
 
