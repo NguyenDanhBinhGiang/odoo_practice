@@ -1,12 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-acl_spending_config,spending_config,model_spending_config,base.group_system,1,1,1,1
-acl_spending_limit,spending_limit,model_spending_limit,base.group_system,1,1,1,1
-acl_spending_config,spending_config,model_spending_config,purchase_inherit.invoice_employee,1,1,1,1
-acl_spending_limit,spending_limit,model_spending_limit,purchase_inherit.invoice_employee,1,1,1,1
+acl_spending_config_admin,spending_config,model_spending_config,base.group_system,1,1,1,1
+acl_spending_limit_admin,spending_limit,model_spending_limit,base.group_system,1,1,1,1
 
-acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,base.group_user,1,1,1,1
-acl_spending_report,spending_report,model_spending_report,base.group_user,1,1,1,1
-acl_spending_report_wizard,spending_report_wizard,model_spending_report_wizard,purchase_inherit.invoice_employee,1,1,1,1
-acl_spending_report,spending_report,model_spending_report,purchase_inherit.invoice_employee,1,1,1,1
+acl_spending_config_employee,spending_config,model_spending_config,purchase_inherit.invoice_employee,1,1,1,1
+acl_spending_limit_employee,spending_limit,model_spending_limit,purchase_inherit.invoice_employee,1,1,1,1
+
+acl_spending_report_wizard_user,spending_report_wizard,model_spending_report_wizard,base.group_user,1,1,1,1
+acl_spending_report_user,spending_report,model_spending_report,base.group_user,1,1,1,1
+
+acl_spending_report_wizard_employee,spending_report_wizard,model_spending_report_wizard,purchase_inherit.invoice_employee,1,1,1,1
+acl_spending_report_employee,spending_report,model_spending_report,purchase_inherit.invoice_employee,1,1,1,1
 
 acl_purchase_order_sale_employee,purchase_order,model_purchase_order,purchase_inherit.purchase_employee,1,1,1,0
