@@ -131,6 +131,22 @@ class BusinessPlan(models.Model):
         sale_users = self.env.ref('bai3.default_sale_department').member_ids.mapped('user_id')
         self.assign_approver(sale_users)
 
+    def send_email_action(self):
+        for appr in self.approvals_id:
+            # TODO: check approval status, don't send email again
+            email_values = {
+                'email_cc': False,
+                'auto_delete': True,
+                'recipient_ids': [],
+                'partner_ids': [],
+                'scheduled_date': False,
+                'email_from': 'nguyendanhbinhgiang@gmail.com',
+                'email_to': appr.user_id.partner_id.email,
+            }
+
+            mail_template = self.env.ref('bai3.mail_template_approval_email')
+            mail_template.send_mail(appr.id, force_send=True, raise_exception=True, email_values=email_values)
+
     @api.model
     def create(self, vals_list):
         new_plan = super(BusinessPlan, self).create(vals_list=vals_list)
